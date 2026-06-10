@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Deffa | Portfolio</title>
+    <meta name="description" content="Portfolio of Mohamed Deffa - IT Support, Systems & Automation, AI Tooling">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0D0D0F;
+            --surface-color: #111116;
+            --border-color: #1E1E28;
+            --accent-color: #6E7BFF;
+            --text-primary: #F0F0F5;
+            --text-secondary: #7A7A8C;
+            --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition-speed: 200ms;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            section {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+            .cursor {
+                animation: none;
+                opacity: 1;
+            }
+            .card::before {
+                transition: none;
+            }
+            .card:hover {
+                box-shadow: none;
+                transform: none;
+            }
+        }
+
+        .section-header {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--accent-color);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 100px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+
+        .hero .role {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--accent-color);
+            vertical-align: middle;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a66d6;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(110, 123, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Cards */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 8px;
+            position: relative;
+            transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background-color: var(--accent-color);
+            transition: height var(--transition-speed) ease-out;
+        }
+
+        .card:hover {
+            background-color: #14141a;
+            box-shadow: 0 4px 20px rgba(110, 123, 255, 0.05);
+        }
+
+        .card:hover::before {
+            height: 100%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .card-link {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .stack-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stack-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Skills */
+        .skills-group {
+            margin-bottom: 24px;
+        }
+
+        .skills-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skills-group-title {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .skills-list {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .skills-list span {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+        
+        .skills-list .dot {
+            color: var(--border-color);
+            margin: 0 8px;
+            font-family: var(--font-main);
+        }
+
+        /* Experience & Education */
+        .timeline-item {
+            margin-bottom: 32px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-date {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-subtitle {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .timeline-content {
+            color: var(--text-secondary);
+        }
+
+        .timeline-content ul {
+            list-style-type: none;
+        }
+
+        .timeline-content ul li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 6px;
+        }
+
+        .timeline-content ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .availability {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            section {
+                padding: 60px 0;
+            }
+            .hero {
+                padding: 80px 0 60px;
+            }
+            .card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <h1>Mohamed Deffa</h1>
+            <div class="role">IT Support · Systems & Automation · AI Tooling <br> Settimo Torinese (TO), Italy</div>
+            <div class="tagline">
+                Self-taught developer who builds real things — full-stack apps, AI pipelines, and 3D experiences — using modern tools and a learn-by-shipping mentality.<span class="cursor"></span>
+            </div>
+            <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#" class="btn btn-secondary">Download CV</a>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-header">Projects</h2>
+            <div class="card-list">
+                
+                <!-- Project 1 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">LuxElite — AI Content Platform</h3>
+                        <a href="https://luxelite.beauty" target="_blank" rel="noopener noreferrer" class="card-link">
+                            luxelite.beauty
+                            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="card-description">
+                        Full-stack K-beauty editorial blog with a fully automated AI content pipeline. Trend data flows from Grok API → Supabase queue → GCP VM → Gemini writes and publishes blog posts with images sourced via Serper API. LiteLLM/RouteLLM routes across Gemini and Kimi 2.5 on Vertex AI. Pinterest posts auto-generated per publish. SEO-optimized with lazy loading, JSON-LD, Core Web Vitals tuning.
+                    </div>
+                    <div class="stack-list">
+                        <span class="stack-tag">React</span>
+                        <span class="stack-tag">Vite</span>
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag">Tailwind</span>
+                        <span class="stack-tag">Supabase</span>
+                        <span class="stack-tag">GCP</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Marmo e Anima — 3D Virtual Museum</h3>
+                        <a href="https://1rthuu.github.io/marmo-e-anima/" target="_blank" rel="noopener noreferrer" class="card-link">
+                            Live Demo
+                            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="card-description">
+                        Walkable first-person 3D museum dedicated to Antonio Canova's neoclassical sculptures. WASD movement, mouse look, per-sculpture orbit inspection, info panels, critical review catalogue. Built as a school graduation project.
+                    </div>
+                    <div class="stack-list">
+                        <span class="stack-tag">Three.js</span>
+                        <span class="stack-tag">HTML/CSS</span>
+                        <span class="stack-tag">GitHub Pages</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Linux Home Server & AI Lab</h3>
+                    </div>
+                    <div class="card-description">
+                        Rebuilt a used PC as a Linux home server from hardware up. Installed and configured local LLMs via Ollama. Full hardware maintenance including disassembly and reassembly.
+                    </div>
+                    <div class="stack-list">
+                        <span class="stack-tag">Linux</span>
+                        <span class="stack-tag">Python</span>
+                        <span class="stack-tag">Ollama</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-header">Skills</h2>
+            
+            <div class="skills-group">
+                <div class="skills-group-title">Cloud & Infra</div>
+                <div class="skills-list">
+                    <span>GCP (VM, IAM, billing)</span><span class="dot">•</span><span>Cloudflare Zero Trust</span><span class="dot">•</span><span>Linux (Ubuntu/Debian)</span><span class="dot">•</span><span>Docker basics</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-group-title">AI & Automation</div>
+                <div class="skills-list">
+                    <span>LLM APIs (Grok, Gemini, Claude)</span><span class="dot">•</span><span>LiteLLM/RouteLLM</span><span class="dot">•</span><span>Prompt engineering</span><span class="dot">•</span><span>MCP protocol</span><span class="dot">•</span><span>Serper API</span><span class="dot">•</span><span>Local model deployment (Ollama)</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-group-title">Frontend</div>
+                <div class="skills-list">
+                    <span>HTML/CSS</span><span class="dot">•</span><span>React</span><span class="dot">•</span><span>Tailwind</span><span class="dot">•</span><span>Three.js</span><span class="dot">•</span><span>Vite</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-group-title">Backend & DB</div>
+                <div class="skills-list">
+                    <span>Python</span><span class="dot">•</span><span>Supabase (PostgreSQL)</span><span class="dot">•</span><span>REST APIs</span><span class="dot">•</span><span>SQL</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-group-title">Tools</div>
+                <div class="skills-list">
+                    <span>Git & GitHub</span><span class="dot">•</span><span>Google Cloud Console</span><span class="dot">•</span><span>Claude Code</span><span class="dot">•</span><span>VS Code</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2 class="section-header">Experience</h2>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Translator & Activity Guide</h3>
+                    <span class="timeline-date">Oct 2024</span>
+                </div>
+                <div class="timeline-subtitle">Erasmus+ Programme, Settimo Torinese</div>
+                <div class="timeline-content">
+                    <ul>
+                        <li>Live translation (Arabic / English / Italian) for an international Erasmus group</li>
+                        <li>Bridged communication between Italian hosts and foreign students</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-header">Education</h2>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <h3 class="timeline-title">High School Diploma — Applied Sciences</h3>
+                    <span class="timeline-date">Graduating 2026</span>
+                </div>
+                <div class="timeline-subtitle">IIS Settimo Torinese · EQF Level 4</div>
+                <div class="timeline-content">
+                    Coursework: informatics, analytic geometry, trigonometry, physics, chemistry
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer / Contact Section -->
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="mailto:moh1med.deffa@gmail.com" class="footer-link">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        moh1med.deffa@gmail.com
+                    </a>
+                    <a href="tel:+393276059665" class="footer-link">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        +39 327 605 9665
+                    </a>
+                    <a href="https://github.com/1rthuu" target="_blank" rel="noopener noreferrer" class="footer-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                        GitHub
+                    </a>
+                </div>
+                <div class="availability">
+                    <div class="availability-dot"></div>
+                    Available for part-time and internship roles
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Scroll-triggered fade-in for sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
